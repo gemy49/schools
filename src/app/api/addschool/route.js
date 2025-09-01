@@ -15,8 +15,6 @@ export async function POST(req) {
     const imageFile = formData.get("image"); 
 
     let imagePath = null;
-
-    // Handle image upload
     if (imageFile && imageFile.size > 0) {
       const bytes = await imageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -34,7 +32,6 @@ export async function POST(req) {
       imagePath = `/schoolimages/${newFileName}`; 
     }
 
-    // Debug: Log what's going into DB
     console.log("Inserting:", {
       name,
       address,

@@ -21,20 +21,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Bootstrap CSS */}
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
         />
-        {/* Bootstrap JS */}
         <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
           defer
         ></script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {/* Navbar */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-fixed top-0 w-100" style={{ zIndex: 1000 }}>
           <div className="container">
             <Link className="navbar-brand" href="/">
               School App
@@ -53,12 +50,12 @@ export default function RootLayout({ children }) {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link className="btn btn-outline-light mx-3" href="/addschool">
+                  <Link className="btn btn-outline-light m-1  " href="/addschool">
                     Add School
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="  btn btn-outline-light" href="/showschools">
+                  <Link className="  btn btn-outline-light m-1" href="/showschools">
                     Show Schools
                   </Link>
                 </li>
@@ -66,9 +63,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
         </nav>
-
-        {/* Page content */}
-        <main className="container mt-4">{children}</main>
+        <main className="container mt-4 p-4">{children}</main>
       </body>
     </html>
   );
