@@ -282,7 +282,7 @@ export default function AddSchoolSimple() {
                         ) : (
                           <div className="d-flex flex-column align-items-center justify-content-center py-4">
                             <FontAwesomeIcon icon={faCloudUploadAlt} size="3x" className="text-muted mb-3" />
-                            <h5 className="text-dark mb-2">Click to upload or drag and drop</h5>
+                            <h5 className="text-dark mb-2">Click to upload </h5>
                             <p className="text-muted mb-0">PNG, JPG, GIF up to 10MB</p>
                           </div>
                         )}
