@@ -2,6 +2,24 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Import FontAwesome components and icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSchool,
+  faMapMarkerAlt,
+  faCity,
+  faGlobeAmericas,
+  faPhoneAlt,
+  faEnvelope,
+  faImage,
+  faCloudUploadAlt,
+  faTimes,
+  faPlusCircle,
+  faSpinner,
+  faCheckCircle,
+  faExclamationCircle,
+} from '@fortawesome/free-solid-svg-icons';
+
 export default function AddSchoolSimple() {
   const [form, setForm] = useState({
     name: "",
@@ -74,124 +92,224 @@ export default function AddSchoolSimple() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8 col-lg-6">
-          <div className="card shadow-sm border-0">
-            <div className="card-header bg-dark text-white text-center">
-              <h2 className="mb-0">Add New School</h2>
-            </div>
-            <div className="card-body p-4">
-              <form onSubmit={handleSubmit} encType="multipart/form-data">
-                {/* Name */}
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">School Name *</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                  />
+    <div className="bg-light min-vh-100 d-flex align-items-center py-5">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-8 col-xl-7">
+            <div className="card shadow-lg border-0">
+              {/* Header */}
+              <div className="card-header bg-dark text-white text-center py-4">
+                <div
+                  className="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                  style={{ width: '80px', height: '80px' }}
+                >
+                  <FontAwesomeIcon icon={faSchool} className="text-white fa-2x" />
                 </div>
+                <h1 className="h2 mb-2 fw-bold">Add New School</h1>
+                <p className="mb-0 opacity-75">Enter the school details to register it in the system</p>
+              </div>
 
-                {/* Address */}
-                <div className="mb-3">
-                  <label htmlFor="address" className="form-label">Address *</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="address"
-                    name="address"
-                    value={form.address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                {/* City */}
-                <div className="mb-3">
-                  <label htmlFor="city" className="form-label">City *</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="city"
-                    name="city"
-                    value={form.city}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                {/* State */}
-                <div className="mb-3">
-                  <label htmlFor="state" className="form-label">State *</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="state"
-                    name="state"
-                    value={form.state}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                {/* Contact Number */}
-                <div className="mb-3">
-                  <label htmlFor="contact_number" className="form-label">Contact Number</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    id="contact_number"
-                    name="contact_number"
-                    value={form.contact_number}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                {/* Email */}
-                <div className="mb-3">
-                  <label htmlFor="email_id" className="form-label">Email *</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email_id"
-                    name="email_id"
-                    value={form.email_id}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                {/* Image Upload */}
-                <div className="mb-3">
-                  <label htmlFor="image" className="form-label">School Logo (Optional)</label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    id="image"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleChange}
-                  />
-                  {preview && (
-                    <div className="mt-2">
-                      <img
-                        src={preview}
-                        alt="Preview"
-                        style={{ maxWidth: "100%", height: "150px", objectFit: "cover", borderRadius: "8px" }}
+              {/* Form Body */}
+              <div className="card-body p-4 p-md-5">
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                  {/* Success/Error Message */}
+                  {message && (
+                    <div
+                      className={`alert d-flex align-items-center mb-4 ${
+                        message.includes('successfully') || !message.includes('Error')
+                          ? 'alert-success'
+                          : 'alert-danger'
+                      }`}
+                      role="alert"
+                    >
+                      <FontAwesomeIcon
+                        icon={message.includes('successfully') || !message.includes('Error') ? faCheckCircle : faExclamationCircle}
+                        className="me-2"
                       />
+                      <div>{message}</div>
                     </div>
                   )}
-                </div>
 
-                <button type="submit" className="btn btn-dark w-100 py-2" disabled={loading}>
-                  {loading ? "Saving..." : "Add School"}
-                </button>
-              </form>
+                  <div className="row g-4">
+                    {/* School Name */}
+                    <div className="col-md-6">
+                      <label htmlFor="name" className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faSchool} className="me-2 text-primary" />
+                        School Name *
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        id="name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="Enter school name"
+                        required
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="col-md-6">
+                      <label htmlFor="email_id" className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faEnvelope} className="me-2 text-primary" />
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        className="form-control form-control-lg"
+                        id="email_id"
+                        name="email_id"
+                        value={form.email_id}
+                        onChange={handleChange}
+                        placeholder="school@example.com"
+                        required
+                      />
+                    </div>
+
+                    {/* Address */}
+                    <div className="col-12">
+                      <label htmlFor="address" className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faMapMarkerAlt} className="me-2 text-primary" />
+                        Address *
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        id="address"
+                        name="address"
+                        value={form.address}
+                        onChange={handleChange}
+                        placeholder="Enter complete address"
+                        required
+                      />
+                    </div>
+
+                    {/* City */}
+                    <div className="col-md-6">
+                      <label htmlFor="city" className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faCity} className="me-2 text-primary" />
+                        City *
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        id="city"
+                        name="city"
+                        value={form.city}
+                        onChange={handleChange}
+                        placeholder="Enter city"
+                        required
+                      />
+                    </div>
+
+                    {/* State */}
+                    <div className="col-md-6">
+                      <label htmlFor="state" className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faGlobeAmericas} className="me-2 text-primary" />
+                        State *
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        id="state"
+                        name="state"
+                        value={form.state}
+                        onChange={handleChange}
+                        placeholder="Enter state"
+                        required
+                      />
+                    </div>
+
+                    {/* Contact Number */}
+                    <div className="col-md-6">
+                      <label htmlFor="contact_number" className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faPhoneAlt} className="me-2 text-primary" />
+                        Contact Number
+                      </label>
+                      <input
+                        type="tel"
+                        className="form-control form-control-lg"
+                        id="contact_number"
+                        name="contact_number"
+                        value={form.contact_number}
+                        onChange={handleChange}
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+
+                    {/* Image Upload */}
+                    <div className="col-12">
+                      <label className="form-label fw-semibold d-flex align-items-center">
+                        <FontAwesomeIcon icon={faImage} className="me-2 text-primary" />
+                        School Logo (Optional)
+                      </label>
+                      <div
+                        className="border border-2 border-dashed rounded-3 p-4 text-center bg-light"
+                        style={{ cursor: 'pointer', minHeight: '200px' }}
+                        onClick={() => document.getElementById("image").click()}
+                      >
+                        <input
+                          type="file"
+                          id="image"
+                          name="image"
+                          accept="image/*"
+                          className="d-none"
+                          onChange={handleChange}
+                        />
+                        {preview ? (
+                          <div className="position-relative d-inline-block">
+                            <img
+                              src={preview}
+                              alt="School logo preview"
+                              className="img-fluid rounded-2 shadow-sm"
+                              style={{ maxHeight: '200px', objectFit: 'cover' }}
+                            />
+                            <button
+                              type="button"
+                              className="btn btn-danger btn-sm rounded-circle position-absolute top-0 end-0 translate-middle"
+                              style={{ width: '32px', height: '32px' }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setPreview(null);
+                                setForm((prev) => ({ ...prev, image: null }));
+                                document.getElementById("image").value = "";
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="d-flex flex-column align-items-center justify-content-center py-4">
+                            <FontAwesomeIcon icon={faCloudUploadAlt} size="3x" className="text-muted mb-3" />
+                            <h5 className="text-dark mb-2">Click to upload or drag and drop</h5>
+                            <p className="text-muted mb-0">PNG, JPG, GIF up to 10MB</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="btn btn-dark btn-lg w-100 mt-4 py-3 fw-medium"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <FontAwesomeIcon icon={faSpinner} spin className="me-2" />
+                        <span>Adding School...</span>
+                      </>
+                    ) : (
+                      <>
+                        <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
+                        <span>Add School</span>
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
